@@ -1,4 +1,6 @@
 {% extends "todo/base.html" %}
+{% load static %}
+{% load martortags %}
 
 {% block title %}Task:{{ task.title }}{% endblock %}
 
@@ -24,7 +26,7 @@
       <div class="card-body">
         <h3 class="card-title">{{ task.title }}</h3>
         {% if task.note %}
-        <div class="card-text">{{ task.note|safe|urlize|linebreaks }}</div>
+        <div class="card-text">{{ task.note|safe_markdown }}</div>
         {% endif %}
       </div>
     </div>
@@ -36,8 +38,8 @@
             class="btn btn-sm btn-primary"
             id="EditTaskButton"
             type="button"
-            data-toggle="collapse"
-            data-target="#TaskEdit">
+            data-bs-toggle="collapse"
+            data-bs-target="#TaskEdit">
             Edit Task
           </button>
 

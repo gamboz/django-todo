@@ -10,6 +10,7 @@ from django.db import DEFAULT_DB_ALIAS, models
 from django.db.transaction import Atomic, get_connection
 from django.urls import reverse
 from django.utils import timezone
+from martor.models import MartorField
 
 
 def get_attachment_upload_dir(instance, filename):
@@ -89,7 +90,7 @@ class Task(models.Model):
         related_name="todo_assigned_to",
         on_delete=models.CASCADE,
     )
-    note = models.TextField(blank=True, null=True)
+    note = MartorField(blank=True, null=True)
     priority = models.PositiveIntegerField(blank=True, null=True)
 
     # Has due date for an instance of this object passed?

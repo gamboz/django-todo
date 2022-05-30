@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.forms import ModelForm
 from todo.models import Task, TaskList
+from martor.fields import MartorFormField
 
 
 class AddTaskListForm(ModelForm):
@@ -47,7 +48,7 @@ class AddEditTaskForm(ModelForm):
 
     title = forms.CharField(widget=forms.widgets.TextInput())
 
-    note = forms.CharField(widget=forms.Textarea(), required=False)
+    note = MartorFormField(required=False)
 
     completed = forms.BooleanField(required=False)
 
