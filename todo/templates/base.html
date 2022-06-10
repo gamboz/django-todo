@@ -12,7 +12,7 @@
   <link
     rel="shortcut icon"
     href="{% static 'favicon.ico' %}">
-  
+
   {% block css %}{% endblock %}
   {% block extrahead %}{% endblock %}
 
@@ -22,10 +22,9 @@
   <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'plugins/css/resizable.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'martor/css/martor.bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet" />
-  
+
 </head>
 <body>
-
   <div class="ui container main-container">
     <div class="main-content">
       {% block messages %}
@@ -39,7 +38,6 @@
           </div>
         {% endif %}
       {% endblock %}
-
       {% block content %}{% endblock %}
     </div>
   </div>
@@ -60,7 +58,7 @@
         hljs.highlightBlock(block);
     });
   </script>
-  
+
   <!-- TODO: move only where needed: "edit" templates -->
   <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
@@ -71,6 +69,6 @@
   <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>  
+  <script type="text/javascript" src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>
 </body>
 </html>
