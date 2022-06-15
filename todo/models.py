@@ -17,7 +17,7 @@ def get_attachment_upload_dir(instance, filename):
     """Determine upload dir for task attachment files.
     """
 
-    return "/".join(["tasks", "attachments", str(instance.task.id), filename])
+    return "/".join(["tasks", "attachments", str(instance.comment.task.id), filename])
 
 
 class LockedAtomicTransaction(Atomic):
@@ -142,7 +142,7 @@ class Comment(models.Model):
     email_from = models.CharField(max_length=320, blank=True, null=True)
     email_message_id = models.CharField(max_length=255, blank=True, null=True)
 
-    body = models.TextField(blank=True)
+    body = MartorField(blank=True)
 
     class Meta:
         # an email should only appear once per task
@@ -168,12 +168,10 @@ class Comment(models.Model):
 
 class Attachment(models.Model):
     """
-    Defines a generic file attachment for use in M2M relation with Task.
+    Defines a generic file attachment for use in 12M relation with Comment.
     """
 
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(default=datetime.datetime.now)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     file = models.FileField(upload_to=get_attachment_upload_dir, max_length=255)
 
     def filename(self):
@@ -184,4 +182,4 @@ class Attachment(models.Model):
         return extension
 
     def __str__(self):
-        return f"{self.task.id} - {self.file.name}"
+        return f"{self.comment.task.id} - {self.file.name}"
