@@ -155,7 +155,7 @@
         </table>
         <input type="hidden" name="add_comment" value="on"/>
         <input type="submit" value="Save"/>
-        <a href="{% url 'lista' %}">back to the list</a>
+        <a href="{% url 'todo:list_detail' task.task_list.id task.task_list.slug %}">back to the list</a>
       </form>
     </div>
   </div>
