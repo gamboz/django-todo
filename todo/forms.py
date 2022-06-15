@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import Group
 from django.forms import ModelForm
-from todo.models import Task, TaskList
+from django.forms.fields import FileField
+from django.forms.models import inlineformset_factory
+from todo.models import Task, TaskList, Comment, Attachment
 from martor.fields import MartorFormField
 
 
@@ -86,3 +88,38 @@ class SearchForm(forms.Form):
     """Search."""
 
     q = forms.CharField(widget=forms.widgets.TextInput(attrs={"size": 35}))
+
+
+class AddEditCommentForm(ModelForm):
+    """Form to allow creating comments."""
+
+    body = MartorFormField(required=False)
+
+    class Meta:
+        model = Comment
+        exclude = [
+            'author',
+            'task',
+            'date',
+            'email_from',
+            'email_message_id',
+        ]
+
+
+# https://dev.to/zxenia/django-inline-formsets-with-class-based-views-and-crispy-forms-14o6
+
+
+class AttachmentForm(ModelForm):
+    """Simple one-file attachment."""
+
+    class Meta:
+        model = Attachment
+        fields = ['file', ]
+
+
+AttachmentFormSet = inlineformset_factory(
+    Comment, Attachment,
+    form=AttachmentForm,
+    # fields=['name', 'language'],
+    extra=1, can_delete=True
+    )
