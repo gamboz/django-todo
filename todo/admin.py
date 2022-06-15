@@ -3,7 +3,7 @@ import datetime
 
 from django.contrib import admin
 from django.http import HttpResponse
-
+from django.contrib.contenttypes.admin import InlineModelAdmin
 from todo.models import Attachment, Comment, Task, TaskList
 
 
@@ -41,16 +41,22 @@ class TaskAdmin(admin.ModelAdmin):
     actions = [export_to_csv]
 
 
+class AttachmentInline(InlineModelAdmin):
+    model = Attachment
+
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ("author", "date", "snippet")
+    list_display = ("author", "date", "snippet",)
+    inlines = [
+        AttachmentInline,
+    ]
 
 
-class AttachmentAdmin(admin.ModelAdmin):
-    list_display = ("task", "added_by", "timestamp", "file")
-    autocomplete_fields = ["added_by", "task"]
+# class AttachmentAdmin(admin.ModelAdmin):
+#     list_display = ("task", "added_by", "timestamp", "file")
+#     autocomplete_fields = ["added_by", "task"]
 
 
 admin.site.register(TaskList)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Task, TaskAdmin)
-admin.site.register(Attachment, AttachmentAdmin)
+# admin.site.register(Attachment, AttachmentAdmin)
